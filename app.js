@@ -278,8 +278,56 @@ async function cadastrarDispositivo() {
 }
 
 async function atualizarDispositivo() {
-  alert('Botão ATUALIZAR clicado!');
-  // TODO: Passo 4
+  const id = campoId.value.trim();
+  
+  if (!id) {
+    mostrarMensagem('Digite um ID para buscar.', 'erro');
+    return;
+  }
+
+  const nome = campoNome.value.trim();
+  const cor = campoCor.value.trim();
+  const capacidade = campoCapacidade.value.trim();
+  const preco = campoPreco.value;
+
+  if (!nome) {
+    mostrarMensagem('O nome do dispositivo é obrigatório.', 'erro');
+    return;
+  }
+
+  const precoNumerico = parseFloat(preco) || 0;
+
+  const novoDispositivo = {
+    name: nome,
+    data: {
+      color: cor,
+      capacity: capacidade,
+      price: precoNumerico
+    }
+  };
+
+  const respostaHTTP = await fetch(`${URL_API}/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(novoDispositivo)
+  });
+
+  if (!respostaHTTP.ok) {
+    mostrarMensagem('Erro ao cadastrar. A API retornou status ' + respostaHTTP.status + '.', 'erro');
+    return;
+  }
+
+  const itemAtualizado = await respostaHTTP.json();
+  const posicao = dispositivos.findIndex(d => d.id === id);
+
+  if (posicao !== -1) {
+    dispositivos[posicao] = itemAtualizado;
+  }
+
+  renderizar();
+  mostrarMensagem();
 }
 
 async function excluirDispositivo() {
