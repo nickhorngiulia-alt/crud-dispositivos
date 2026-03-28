@@ -118,6 +118,16 @@ function renderizar() {
 
     // 2d. Anexar a linha ao corpo da tabela
     corpoTabela.appendChild(linha);
+    
+    // 2e. (BÔNUS) Ao clicar na linha, preencher o formulário com os dados
+    linha.style.cursor = 'pointer';  // muda o cursor para indicar que é clicável
+    linha.addEventListener('click', function() {
+      campoId.value = item.id;
+      campoNome.value = item.name || '';
+      campoCor.value = (item.data && item.data.color) ? item.data.color : '';
+      campoCapacidade.value = (item.data && item.data.capacity) ? item.data.capacity : '';
+      campoPreco.value = (item.data && item.data.price) ? item.data.price : '';
+    });
   }
 }
 
@@ -344,10 +354,7 @@ async function excluirDispositivo() {
     return;
   } else {
     const respostaHTTP = await fetch(`${URL_API}/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      method: 'DELETE'
     });
 
     if (!respostaHTTP.ok) {
