@@ -51,6 +51,7 @@ h1 {
 #btnCadastrar  { background-color: #4CAF50; }
 #btnAtualizar  { background-color: #FF9800; }
 #btnExcluir    { background-color: #f44336; }
+#btnLimpar {background-color: #f436d8;}
 
 /* ---------- Mensagem de feedback ---------- */
 #mensagem {

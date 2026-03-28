@@ -364,6 +364,16 @@ async function excluirDispositivo() {
   }
 }
 
+function limparCampos() {
+  campoId.value = '';
+  campoNome.value = '';
+  campoCor.value = '';
+  campoCapacidade.value = '';
+  campoPreco.value = '';
+  listarDispositivos();
+  
+}
+
 // ============================================================
 // EVENT LISTENERS (conectam os botões às funções)
 // ============================================================
@@ -373,3 +383,4 @@ document.getElementById('btnBuscar').addEventListener('click', buscarPorId);
 document.getElementById('btnCadastrar').addEventListener('click', cadastrarDispositivo);
 document.getElementById('btnAtualizar').addEventListener('click', atualizarDispositivo);
 document.getElementById('btnExcluir').addEventListener('click', excluirDispositivo);
+document.querySelector("#btnLimpar").addEventListener("click", limparCampos);
