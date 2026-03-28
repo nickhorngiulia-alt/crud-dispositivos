@@ -331,8 +331,30 @@ async function atualizarDispositivo() {
 }
 
 async function excluirDispositivo() {
-  alert('Botão EXCLUIR clicado!');
-  // TODO: Passo 5
+  const id = campoId.value.trim();
+
+  if (!id) {
+    mostrarMensagem('Digite um ID para buscar.', 'erro');
+    return;
+  }
+
+  const confirmou = confirm('Tem certeza que deseja excluir?');
+  
+  if (!confirmou) {
+    return;
+  } else {
+    const respostaHTTP = await fetch(`${URL_API}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
+
+    if (!respostaHTTP.ok) {
+      mostrarMensagem('Erro ao excluir. A API retornou status ' + respostaHTTP.status + '.', 'erro');
+      return;
+    }
+  }
 }
 
 // ============================================================
