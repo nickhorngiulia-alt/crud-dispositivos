@@ -3,7 +3,7 @@
 // ============================================================
 
 // Endereço base da API pública de testes
-const URL_API = 'https://api.restful-api.dev/objects';
+const URL_API = 'https://restful-apidevcloe.vercel.app/objects';
 
 // ============================================================
 // VETOR LOCAL (nosso "espelho" dos dados da API)
@@ -325,7 +325,7 @@ async function atualizarDispositivo() {
   });
 
   if (!respostaHTTP.ok) {
-    mostrarMensagem('Erro ao cadastrar. A API retornou status ' + respostaHTTP.status + '.', 'erro');
+    mostrarMensagem('Erro ao atualizar. A API retornou status ' + respostaHTTP.status + '.', 'erro');
     return;
   }
 
@@ -335,7 +335,6 @@ async function atualizarDispositivo() {
   if (posicao !== -1) {
     dispositivos[posicao] = itemAtualizado;
   }
-
   renderizar();
   mostrarMensagem();
 }
@@ -361,6 +360,10 @@ async function excluirDispositivo() {
       mostrarMensagem('Erro ao excluir. A API retornou status ' + respostaHTTP.status + '.', 'erro');
       return;
     }
+    dispositivos = dispositivos.filter(d => d.id !== id);
+    renderizar();
+    limparCampos();
+    mostrarMensagem(`Dispositivo excluído com sucesso.`, `sucesso`);
   }
 }
 
